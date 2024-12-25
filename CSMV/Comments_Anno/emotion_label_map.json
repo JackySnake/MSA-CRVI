@@ -1,0 +1,10 @@
+{
+    "joy": 0,
+    "disgust": 1,
+    "surprise": 2,
+    "sadness": 3,
+    "trust": 4,
+    "fear": 5,
+    "anger": 6,
+    "anticipation": 7
+}
