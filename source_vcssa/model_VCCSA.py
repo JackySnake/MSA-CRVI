@@ -57,7 +57,7 @@ class TextEncoder(nn.Module):# TextEncoder config:text_max_len
         self.tokenizer = RobertaTokenizerFast.from_pretrained(
             pretrained_model_name_or_path = pre_trained_LM_path)
         self.text_encoder = RobertaModel.from_pretrained(
-            pretrained_model_name_or_path = pre_trained_LM_path) #TODO fine-tune?
+            pretrained_model_name_or_path = pre_trained_LM_path) 
 
     def forward(self, comment: Dict):
         tokens = self.tokenizer.batch_encode_plus(comment.get("comment"),

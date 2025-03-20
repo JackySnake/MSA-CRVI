@@ -28,6 +28,7 @@ sh train_multigpu.sh
 ```
 
 **Important Notes:**
+- The model utilized the `RoBERTa_base`, please prepare the pretrained file on [huggingface](https://huggingface.co/FacebookAI/roberta-base/tree/main).
 - Training parameters are configured in the shell files
 - Checkpoints are saved after each epoch in `ckpt/mymodel/`
 - Automatic validation is performed after each epoch to track best performance
