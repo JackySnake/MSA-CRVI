@@ -203,3 +203,34 @@ If you have any questions about this repository or the datasets, please contact 
 Thank you!
 
 # Citaion
+```bibtex
+@inproceedings{DBLP:conf/nips/0004FXLJD0Z0L24,
+  author       = {Qi Jia and
+                  Baoyu Fan and
+                  Cong Xu and
+                  Lu Liu and
+                  Liang Jin and
+                  Guoguang Du and
+                  Zhenhua Guo and
+                  Yaqian Zhao and
+                  Xuanjing Huang and
+                  Rengang Li},
+  editor       = {Amir Globersons and
+                  Lester Mackey and
+                  Danielle Belgrave and
+                  Angela Fan and
+                  Ulrich Paquet and
+                  Jakub M. Tomczak and
+                  Cheng Zhang},
+  title        = {Infer Induced Sentiment of Comment Response to Video: {A} New Task,
+                  Dataset and Baseline},
+  booktitle    = {Advances in Neural Information Processing Systems 38: Annual Conference
+                  on Neural Information Processing Systems 2024, NeurIPS 2024, Vancouver,
+                  BC, Canada, December 10 - 15, 2024},
+  year         = {2024},
+  url          = {http://papers.nips.cc/paper\_files/paper/2024/hash/bbf090d264b94d29260f5303efea868c-Abstract-Datasets\_and\_Benchmarks\_Track.html},
+  timestamp    = {Thu, 13 Feb 2025 16:56:44 +0100},
+  biburl       = {https://dblp.org/rec/conf/nips/0004FXLJD0Z0L24.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+```
