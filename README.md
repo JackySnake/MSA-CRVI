@@ -1,7 +1,7 @@
 # Infer Induced Sentiment of Comment Response to Video: A New Task, Dataset and Baseline--NeurIPS2024
 
  This repository aims to share and provide public CSMV datasets which is a Dataset of Infer Induced Sentiment of Comment Response to Video, offering free, open, and accessible data resources for scientists, researchers, and developers.
- The related paper is available in [arxiv](https://arxiv.org/abs/2407.06115).
+ The related paper is available in [here](https://proceedings.neurips.cc/paper_files/paper/2024/file/bbf090d264b94d29260f5303efea868c-Paper-Datasets_and_Benchmarks_Track.pdf).
 
 # Overview
 The prosperity of micro video platforms has brought new topics to multimodal affective computation. The comments of a micro video convey different sentiments. Therefore, we propose a task named Multi-modal Sentiment Analysis for Comment Response of Video Induced(MSA-CRVI) to infer comment opinion and emotion with understanding the micro video. 
