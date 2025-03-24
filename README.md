@@ -1,25 +1,26 @@
 # Infer Induced Sentiment of Comment Response to Video: A New Task, Dataset and Baseline--NeurIPS2024
 
- This repository aims to share and provide public CSMV datasets which is a Dataset of Infer Induced Sentiment of Comment Response to Video, offering free, open, and accessible data resources for scientists, researchers, and developers.
+ This repository provide public CSMV datasets and the proposed method code of **Infer Induced Sentiment of Comment Response to Video** for scientists, researchers, and developers.  
  The related paper is available in [here](https://proceedings.neurips.cc/paper_files/paper/2024/file/bbf090d264b94d29260f5303efea868c-Paper-Datasets_and_Benchmarks_Track.pdf).
 
-# Overview
-The prosperity of micro video platforms has brought new topics to multimodal affective computation. The comments of a micro video convey different sentiments. Therefore, we propose a task named Multi-modal Sentiment Analysis for Comment Response of Video Induced(MSA-CRVI) to infer comment opinion and emotion with understanding the micro video. 
-In light of this, we create a new dataset called Comment Sentiment toward to Micro Video (CSMV) to study this task, which includes more than 100k manually annotated comments. The key to the task is to construct the deep sentiment interaction and semantic correlation between video and comment. 
-## Task
-Existing multi-modal benchmarks on video include MOSI, CMU-MOSEI, and MELD. The video form in these benchmarks is monologue or dialogue. They take temporal images (e.g., facial expression, smile, and gaze), audio(e.g., tones, pauses, and voice pitch), and textual data transcribed from spoken words as a clue to infer the sentiment and emotion of the speaker.
 
-With the development of the Internet we-media, micro video social platforms bring a new issue for multi-modal sentiment analysis. People create micro videos to showcase their individuality and express their feeling about them with comments. Unlike current benchmarks, the comments may hold different sentiments for the same micro-videos. For precise induced sentiment inference from comments, it is essential to integrate the video content. But current approaches tend to treat comment sentiment analysis to be a simple NLP task and neglect the semantic connection between videos and comments.
+## Overview
+
+With the development of the Internet we-media, micro-video social platforms bring a new challenge for multi-modal sentiment analysis. People create micro-videos to showcase their individuality and express their feelings through comments. A single micro-video may elicit numerous comments, which may reflect different induced sentiments toward the micro-video. Therefore, we propose a new task named Multi-modal Sentiment Analysis for Comment Response of Video Induced **(MSA-CRVI)** to infer the opinions and emotions expressed in comments responding to micro video. 
+
+We constrcted a new dataset named Comment Sentiment toward to Micro Video **(CSMV)** containing over 100k manually annotated comments. The core challenge of the task lies in modeling the deep sentiment interaction and semantic correlation between video and comment.
+
+For accurate induced sentiment inference from comments, video content integration is essential. However,  current approaches offen treat comment sentiment analysis as a conventional NLP task, neglecting the semantic connections between videos and their coresponding comments. To address this gap, we propose a baseline method, named Video Content-aware Comment Sentiment Analysis **(VC-CSA)** to advanve this research. 
+
+## CSMV Dataset
+We publish the CSMV dataset in github. The dataset includes the videos and the comments annotations.
 
 The CSMV dataset is collected from the most popular micro video social media platform, TikTok, which includes both the micro videos and corresponding comments.
 Similar to the existing benchmark, we provide two types of annotations: opinion and emotion. The opinion labels consist of Positive, Negative, and Neutral, respectively. It indicates the comment holds agreement, disagreement, or indifferent sentiment toward the content of the videos. As for the emotion labels, we adopt the widely-used Plutchik’s wheel of emotions strategy, which includes eight labels: Trust, Joy, Surprise, Anticipation, Disgust, Sadness, Anger, and Fear.
 
 
-# Dataset
-We publish the CSMV dataset in github. The dataset includes the videos and the comments annotations.
-
-## Videos
-### Description
+### Videos
+#### Description
 
 We transform the video into features through pre-trained models such as I3D, R(2+1)D and VideoMAEv2.
 For the visual feature which extracted from video frames, we present them as tensor representations which saved as npy files for each micro video. 
@@ -34,7 +35,7 @@ It could be access as a excel in the github `CSMV\CSMV_rawLinks.xlsx`.
 
 The `CSMV-video` folder contains feature representations of the micro-videos. Each subfolder is named after a different feature extraction method, and the features for each video are saved as `.npy` files. The filenames correspond to the `video_file_id`. Currently, features extracted using I3D and VideoMAE methods have been released, with more features, including ResNet, to be released in the future.
 
-### Structure of the `CSMV-video` folder:
+#### Structure of the `CSMV-video` folder:
 ```
 visual_feature/
     ├── I3D/
@@ -60,20 +61,19 @@ In this structure:
 - Each subfolder (e.g., `I3D`, `VideoMAE`) contains `.npy` files representing the features of the videos extracted using the respective method.
 - The `.npy` files are named with the `video_file_id`, ensuring a direct correspondence with the `video_file_id` in `lable_data_dict.json`.
 
-### Download
+#### Download
 
 You can download Video Features from the following location:
 
 - Google Drive:[Video Features Download Link](https://drive.google.com/drive/folders/1kSM9J6WdykcJxsfpSTAeE-FyuebUzy9z?usp=sharing)
 <!-- - Baidu NetDisk:[Video Features Download Link](https://pan.baidu.com/s/19K-7D4cFrY0lkhuwEVU1pg?pwd=sykw) Extract code: sykw -->
 
-## Comment Annotations
-
-### Description
+### Comment Annotations
+#### Description
 
 For the comment data, we organize them as JSON files. We save all comments data as a json file and assign unique keys as data pointer. And each comment records text, annotated label, related micro video and hashtag. We use three json file to split train, dev and test set.
 
-### Download
+#### Download
 
 <!-- You can download Comment Annotations from the following location: -->
 <!-- 
@@ -194,7 +194,10 @@ In these structures:
 - Each file contains a list of unique comment data IDs.
 - These IDs correspond to the entries in `lable_data_dict.json`, thus allowing the program to fetch the full comment data for training, development, and testing purposes.
 
-# License
+## Proposed Method
+The source code of the proposed methed **VC-CSA** is availiable in the folder `source_vcssa`.
+
+## License
 
  Our code is open sourced under the MIT license. Our annotations are available under a CC BY-SA 4.0 license.
 
