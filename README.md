@@ -195,7 +195,8 @@ In these structures:
 - These IDs correspond to the entries in `lable_data_dict.json`, thus allowing the program to fetch the full comment data for training, development, and testing purposes.
 
 ## Proposed Method
-The source code of the proposed methed **VC-CSA** is availiable in the folder `source_vcssa`.
+The implementation of our proposed **VC-CSA** (Video Content-aware Comment Sentiment Analysis) method is available in the [`source_vcsa`](./source_vcsa) directory. The included README file provides detailed instructions for using and reproducing the codebase.
+
 
 ## License
 
