@@ -33,7 +33,7 @@ We publish the visual part of video now. We will add the audio feature in the fu
 Meanwhile, we also publish the raw web link of the video to make the dataset useful. 
 It could be access as a excel in the github `CSMV\CSMV_rawLinks.xlsx`.
 
-The `CSMV-video` folder contains feature representations of the micro-videos. Each subfolder is named after a different feature extraction method, and the features for each video are saved as `.npy` files. The filenames correspond to the `video_file_id`. Currently, features extracted using I3D and VideoMAE methods have been released, with more features, including ResNet, to be released in the future.
+The `CSMV-video` folder contains feature representations of the micro-videos. Each subfolder is named after a different feature extraction method, and the features for each video are saved as `.npy` files. The filenames correspond to the `video_file_id`. Currently, features extracted using **I3D**（recommend） and R(2+1)D have been released. More features will be released in the future.
 
 #### Structure of the `CSMV-video` folder:
 ```
