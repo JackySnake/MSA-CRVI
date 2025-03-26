@@ -12,8 +12,12 @@ def compute_args(args):
     #     args.dataloader = 'Meld_Dataset'
     # if args.dataset == "JQ_MVC":
     #     args.dataloader = "JQ_MVC_Dataset" # set the dataset class in use
+
+    # Dataset setting
     if args.dataset == "CSMV":
         args.dataloader = 'CSMV_Dataset'
+    if args.dataset == "CSMV_r2plus1":
+        args.dataloader = 'CSMV_Dataset_r2plus1'
     if args.dataset == "CSMV_VideoMAEv2FPS16":
         args.dataloader = 'CSMV_Dataset_VideoMAEv2FPS16'
     if args.dataset == "CSMV_VideoMAEv2FPS24":
@@ -26,7 +30,11 @@ def compute_args(args):
     # # TODO
     # if args.dataset == 'JQ_MVC':
     #     args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
+
+    # loss calculate
     if args.dataset == 'CSMV':
+        args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
+    if args.dataset == "CSMV_r2plus1":
         args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
     if args.dataset == 'CSMV_VideoMAEv2FPS16':
         args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
@@ -40,9 +48,9 @@ def compute_args(args):
     # if args.dataset == 'MELD' and args.task == "emotion": args.ans_size = 7
     # if args.dataset == 'MELD' and args.task == "sentiment": args.ans_size = 3
 
-    # TODO
-    if args.dataset == 'CSMV':
-        args.ans_size = 7
+    # TODO add task and ans setting
+    # if args.dataset == 'CSMV':
+    #     args.ans_size = 7
 
     # if args.dataset == 'MOSEI': args.pred_func = "amax"
     # if args.dataset == 'MOSEI' and args.task == "emotion": args.pred_func = "multi_label"

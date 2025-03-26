@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 from easydict import EasyDict as eDict
 # dataset load 
-from csmv_dataset import CSMV_Dataset, csmv_collate_fn
+from csmv_dataset import CSMV_Dataset, CSMV_Dataset_r2plus1, csmv_collate_fn
 # traning and evaluate
 from train_vccsv_multigpu import train
 # model and training setting
@@ -69,7 +69,7 @@ def parse_args():
     parser.add_argument(
         '--dataset',
         type=str,
-        choices=['CSMV', 'CSMV_VideoMAEv2FPS16', 'CSMV_VideoMAEv2FPS24'],
+        choices=['CSMV', 'CSMV_r2plus1', 'CSMV_VideoMAEv2FPS16', 'CSMV_VideoMAEv2FPS24'],
         default='CSMV')
     parser.add_argument('--task', type=str, choices=['sentiment', 'emotion'], default='sentiment')
     parser.add_argument('--task_binary', type=bool, default=False)

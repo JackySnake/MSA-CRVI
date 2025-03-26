@@ -4,7 +4,7 @@ from unittest import result
 import torch
 from torch.utils.data import DataLoader
 
-from csmv_dataset import CSMV_Dataset, CSMV_Dataset_VideoMAEv2FPS16, CSMV_Dataset_VideoMAEv2FPS24, csmv_collate_fn
+from csmv_dataset import CSMV_Dataset, CSMV_Dataset_r2plus1, CSMV_Dataset_VideoMAEv2FPS16, CSMV_Dataset_VideoMAEv2FPS24, csmv_collate_fn
 
 from train_vccsv import train 
 from train_vccsv import evaluate
@@ -77,7 +77,7 @@ def parse_args():
     parser.add_argument(
         '--dataset',
         type=str,
-        choices=['CSMV', 'CSMV_VideoMAEv2FPS16', 'CSMV_VideoMAEv2FPS24'],
+        choices=['CSMV', 'CSMV_r2plus1', 'CSMV_VideoMAEv2FPS16', 'CSMV_VideoMAEv2FPS24'],
         default='CSMV')
     # parser.add_argument('--task', type=str, choices=['sentiment', 'emotion'], default='sentiment')
     parser.add_argument('--task_binary', type=bool, default=False)
