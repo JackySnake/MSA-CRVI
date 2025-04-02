@@ -15,7 +15,7 @@ from utils.compute_args import compute_args
 from transformers import (AdamW, get_linear_schedule_with_warmup)
 
 
-from config.config import model_cfg
+from config.config import model_cfg # defalut
 
 from model_VCCSA import MVCAnalysis_Model # add dropout and padding dealing
 
@@ -61,7 +61,7 @@ def parse_args():
     parser.add_argument(
         '--dataset',
         type=str,
-        choices=['CSMV', 'CSMV_r2plus1', 'CSMV_VideoMAEv2FPS16', 'CSMV_VideoMAEv2FPS24'],
+        choices=['CSMV', 'CSMV_r2plus1', 'CSMV_VideoMAEv2FPS24'],
         default='CSMV')
     parser.add_argument('--task', type=str, choices=['sentiment', 'emotion'], default='sentiment')
     parser.add_argument('--task_binary', type=bool, default=False)
@@ -95,8 +95,15 @@ def parse_args():
 
 if __name__ == '__main__':
     # Base on args given, compute new args
-    args = compute_args(parse_args())
 
+    args = compute_args(parse_args())
+    # different visual feature
+    if args.dataset == "CSMV":
+        from config.config import model_cfg #
+    elif args.dataset == "CSMV_r2plus1": #could use for other model design
+        from config.config_r21d import model_cfg  
+    elif args.dataset == "CSMV_VideoMAEv2FPS24": #could use for other model design
+        from config.config_VideoMAEv2fps24 import model_cfg 
     # Seed
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)

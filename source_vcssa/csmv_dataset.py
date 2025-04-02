@@ -284,128 +284,6 @@ class CSMV_Dataset_r2plus1(Dataset):
         # return len(self.annotations)
         return len(self.label_data_select)
         # return 64
-
-
-class CSMV_Dataset_VideoMAEv2FPS16(Dataset):
-    def __init__(self, name, args, token_to_ix=None, dataroot='data'):
-        super(CSMV_Dataset_VideoMAEv2FPS16, self).__init__()
-        assert name in ['train', 'valid', 'test', 'private']
-        self.name = name
-        self.args = args
-        self.private_set = name == 'private'
-        # self.dataroot = os.path.join(dataroot, 'mvc_data')
-        self.dataroot = dataroot
-        self.video_feature_dir = args.video_feature_dir
-
-        self.emotion_label_map = self.read_json_file(os.path.join(self.dataroot, args.emotion_label_map)) #label mapping file of emotion
-        self.opinion_label_map = self.read_json_file(os.path.join(self.dataroot, args.opinion_label_map)) #label mapping file of opinion
-        # self.video_to_comment = self.read_pkl_file(os.path.join(self.dataroot, args.video_comment)) # input data, FOR resampling
-        self.video_to_comment = self.read_json_file(os.path.join(self.dataroot, args.video_comment)) # input data, FOR resampling
-        self.annotations = self.read_json_file(os.path.join(self.dataroot, args.annotations)) # annotation of input data, label data
-        if name == 'train': # input data, get the commentkeys which use
-            self.label_data_select = self.read_json_file(os.path.join(self.dataroot, args.train_set))
-        elif name == 'valid':
-            self.label_data_select = self.read_json_file(os.path.join(self.dataroot, args.dev_set))
-        elif name == 'test':
-            self.label_data_select = self.read_json_file(os.path.join(self.dataroot, args.test_set))
-        # tokenizer to process commment text
-        self.tokenizer = RobertaTokenizerFast.from_pretrained(
-            pretrained_model_name_or_path="~/.cache/torch/hub/transformers/roberta-base")
-        self.vocab_size = self.tokenizer.vocab_size # the length of vocabulary (text token)
-
-        self.l_max_len = args.lang_seq_len # language length
-        # self.a_max_len = args.audio_seq_len
-        self.v_max_len = args.video_seq_len # video length
-
-        self.pretrained_emb = None  # TODO # no LLM fine-tune??
-
-    @staticmethod
-    def read_json_file(path: str) -> Union[Dict, List[Dict],List]:
-        import json
-        with open(path, "r") as f:
-            return json.load(f)
-
-    @staticmethod
-    def read_npy_file(path: str) -> np.ndarray:
-        return np.load(path, allow_pickle=True)
-
-    @staticmethod
-    def read_pkl_file(path: str) -> Dict:
-        with open(path, 'rb') as f:
-            return pickle.load(f)
-
-    def get_video_feature(self, video_name): # get the raw video feature according to the filename in folder
-        video_feat_path = os.path.join(self.video_feature_dir, f"{video_name}.npy")
-        return self.read_npy_file(video_feat_path)
-    
-    # transform str label to one hot tensor label
-    def _encode_one_hot_label(self, opinion_label: str, emotion_label: str) -> Tuple[torch.Tensor, torch.Tensor]:
-        max_opinion_idx = len(self.opinion_label_map)
-        max_emotion_idx = len(self.emotion_label_map)
-
-        opinion_vec = torch.zeros(max_opinion_idx)
-        opinion_label_idx = self.opinion_label_map.get(opinion_label)
-        opinion_vec[opinion_label_idx] = 1
-
-        emotion_vec = torch.zeros(max_emotion_idx)
-        emotion_label_ix = self.emotion_label_map.get(emotion_label)
-        emotion_vec[emotion_label_ix] = 1
-
-        return opinion_vec, emotion_vec
-    # return comment text and the corresponding label tensor
-    def get_video_current_comment_info(self, annotation: Dict) -> Dict:
-        opinion_label = annotation.get("opinion_label")
-        emotion_label = annotation.get("emotion_label")
-        
-        comment = annotation.get("comment")
-
-        _opinion_label, _emotion_label = self._encode_one_hot_label(opinion_label, emotion_label)
-        comment_info = {"emotion_label": _emotion_label, "opinion_label": _opinion_label, "comment": comment}
-
-        return comment_info
-    # sampling another comment for loss
-    def get_video_other_comment_info(self, commentkey, videoid) -> Dict:
-        # other_comment_ids = annotation.get("other_comment_ids")
-        comments_in_video = self.video_to_comment[videoid]
-        random_idx = random.choice(comments_in_video)
-        while random_idx == commentkey:
-            random_idx = random.choice(comments_in_video)
-
-        # video_name = annotation.get("video_name")
-        # select_comment = self.video_comment.get(video_name)[random_idx] # video_comment only for get another comment in same video
-        # random.choice(comments_in_video)
-
-        other_comment_info = self.get_video_current_comment_info(self.annotations.get(random_idx))
-        return other_comment_info
-    
-    def __getitem__(self, idx):
-        # annotation = self.annotations[idx]
-        annotation_commentkey= self.label_data_select[idx]
-        # video_feat = self.get_video_feature(annotation.get("video_name"))
-        comment_label_data = self.annotations.get(annotation_commentkey)
-        videoid = comment_label_data.get("video_file_id")
-        video_feat = self.get_video_feature(videoid[:-4]) #exclude .mp4
-        
-        # comment_info: Dict = self.get_video_current_comment_info(annotation)
-        comment_info: Dict = self.get_video_current_comment_info(comment_label_data)
-        # other_comment_info: Dict = self.get_video_other_comment_info(annotation) # random sample another comment in each get 
-        other_comment_info: Dict = self.get_video_other_comment_info(annotation_commentkey, videoid)
-        # output
-        output = dict()
-        output = comment_label_data # {"video_file_id": "6919483488475286785.mp4",        "comment": "volatility = more opportunities",        "opinion_label": "positive",        "emotion_label": "trust",        "hashtag": "eth"    }
-        output["comment_Key"] = annotation_commentkey
-        output["video_feat"] = pad_feature(video_feat, self.v_max_len) # a tensor
-        output["comment_info"] = comment_info # {"emotion_label": _emotion_label, "opinion_label": _opinion_label, "comment": comment}
-        output["other_comment_info"] = other_comment_info # same as comment_info
-
-        return output
-
-    def __len__(self):
-        # return len(self.annotations)
-        return len(self.label_data_select)
-        # return 64
-
-
     
 
 class CSMV_Dataset_VideoMAEv2FPS24(Dataset): #  fps 24
@@ -415,7 +293,6 @@ class CSMV_Dataset_VideoMAEv2FPS24(Dataset): #  fps 24
         self.name = name
         self.args = args
         self.private_set = name == 'private'
-        # self.dataroot = os.path.join(dataroot, 'mvc_data')
         self.dataroot = dataroot
         self.video_feature_dir = args.video_feature_dir
 

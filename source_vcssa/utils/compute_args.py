@@ -18,8 +18,6 @@ def compute_args(args):
         args.dataloader = 'CSMV_Dataset'
     if args.dataset == "CSMV_r2plus1":
         args.dataloader = 'CSMV_Dataset_r2plus1'
-    if args.dataset == "CSMV_VideoMAEv2FPS16":
-        args.dataloader = 'CSMV_Dataset_VideoMAEv2FPS16'
     if args.dataset == "CSMV_VideoMAEv2FPS24":
         args.dataloader = "CSMV_Dataset_VideoMAEv2FPS24" # set the dataset class in use
     # Loss function to use
@@ -35,8 +33,6 @@ def compute_args(args):
     if args.dataset == 'CSMV':
         args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
     if args.dataset == "CSMV_r2plus1":
-        args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
-    if args.dataset == 'CSMV_VideoMAEv2FPS16':
         args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
     if args.dataset == 'CSMV_VideoMAEv2FPS24':
         args.loss_fn = torch.nn.BCEWithLogitsLoss(reduction="sum")
