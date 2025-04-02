@@ -100,9 +100,9 @@ if __name__ == '__main__':
     # different visual feature
     if args.dataset == "CSMV":
         from config.config import model_cfg #
-    elif args.dataset == "CSMV_r2plus1": #could use for other model design
+    elif args.dataset == "CSMV_r2plus1": # r21d
         from config.config_r21d import model_cfg  
-    elif args.dataset == "CSMV_VideoMAEv2FPS24": #could use for other model design
+    elif args.dataset == "CSMV_VideoMAEv2FPS24": # videoMAE
         from config.config_VideoMAEv2fps24 import model_cfg 
     # Seed
     torch.manual_seed(args.seed)
