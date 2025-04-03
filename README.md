@@ -65,8 +65,9 @@ In this structure:
 
 You can download Video Features from the following location:
 
+- Huggingface（**Recommend**）:[Video Features Download Link](https://huggingface.co/datasets/jackynix/CSMV_visual/tree/main) 
 - Google Drive:[Video Features Download Link](https://drive.google.com/drive/folders/1kSM9J6WdykcJxsfpSTAeE-FyuebUzy9z?usp=sharing)
-<!-- - Baidu NetDisk:[Video Features Download Link](https://pan.baidu.com/s/19K-7D4cFrY0lkhuwEVU1pg?pwd=sykw) Extract code: sykw -->
+
 
 ### Comment Annotations
 #### Description
